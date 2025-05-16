@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *Implementación de Lector para archivos de texto plano
  * @author marti
  */
-public class LectorArchivoTextoPlano {
+public class LectorArchivoTextoPlano implements Lector {
     /**
      * Archivo guardado por lineas
      */

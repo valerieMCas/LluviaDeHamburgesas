@@ -4,6 +4,7 @@
  */
 package gamebase.elements;
 
+import autonoma.atrapacomida.models.FoodField;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
