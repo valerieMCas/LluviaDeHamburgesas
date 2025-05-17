@@ -17,7 +17,9 @@ public class RefreshProgram implements Runnable{
     private GameWindow gameWindow;
     private boolean running;
     private Thread thread;
-
+    /**
+     * Constructor
+     */
     public RefreshProgram(FoodField foodField, GameWindow gameWindow) {
         this.foodField = foodField;
         this.gameWindow = gameWindow;

@@ -27,7 +27,9 @@ public class PoisonSpawner implements Runnable{
     private boolean running;
     private boolean paused;
     protected Thread thread;
-
+    /**
+     * Constructor
+     */
     public PoisonSpawner(FoodField foodField) {
         this.foodField = foodField;
         running = false;

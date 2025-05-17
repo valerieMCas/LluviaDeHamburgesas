@@ -18,7 +18,9 @@ public class FoodSpawner implements Runnable{
     private boolean running;
     private boolean paused;
     protected Thread thread;
-
+    /**
+     * Constructor
+     */
     public FoodSpawner(FoodField foodField) {
         this.foodField = foodField;
         running = false;

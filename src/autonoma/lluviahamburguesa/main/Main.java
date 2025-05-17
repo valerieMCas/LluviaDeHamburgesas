@@ -4,10 +4,10 @@
  */
 package autonoma.lluviahamburguesa.main;
 
-import autonoma.atrapacomida.models.FoodField;
-import autonoma.atrapacomida.models.Player;
-import autonoma.atrapacomida.models.RefreshProgram;
-import autonoma.atrapacomida.views.GameWindow;
+import autonoma.lluviahamburguesa.models.FoodField;
+import autonoma.lluviahamburguesa.models.Player;
+import autonoma.lluviahamburguesa.models.RefreshProgram;
+import autonoma.lluviahamburguesa.views.GameWindow;
 /**
  *La clase main, crea y muestra la ventana.
  * @author marti
