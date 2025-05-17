@@ -10,17 +10,8 @@ import autonoma.lluviahamburguesa.views.GameWindow;
  * @version 1.0.0
  * @since 5/17/2025
  */
-public class PoisonSpawner implements Runnable{
-    /**
-     * Atrubutos
-     */
-    /**
-     * Atrubuto de instancia de la clase FoodField
-     */
+public class FoodSpawner implements Runnable{
     private FoodField foodField;
-    /**
-     * Atributo de instancia de la clase GameWindow
-     */
     private GameWindow gameWindow;
 
     protected long delay;
@@ -28,7 +19,7 @@ public class PoisonSpawner implements Runnable{
     private boolean paused;
     protected Thread thread;
 
-    public PoisonSpawner(FoodField foodField) {
+    public FoodSpawner(FoodField foodField) {
         this.foodField = foodField;
         running = false;
         paused = false;
@@ -41,8 +32,7 @@ public class PoisonSpawner implements Runnable{
             try {
                 Thread.sleep(3000);
                 if (!paused) {
-                    System.out.println("Intentando agregar Posion...");
-                    foodField.addPosion();
+                    foodField.addFood();
                 }
             } catch (InterruptedException ex) {
 
@@ -89,7 +79,4 @@ public class PoisonSpawner implements Runnable{
         thread = new Thread(this);
         thread.start();
     }
-    
-    
-    
 }
