@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * clase que represente el “espacio” donde caen las comidas y venenos.
  *
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  * @version 1.0.0
  * @since 2025-05-10
  */
-public class FoodField extends SpriteContainer{
+public class FoodField extends SpriteContainer {
 
     /**
      * Atributos
@@ -117,7 +118,7 @@ public class FoodField extends SpriteContainer{
     }
 
     public void update() {
-        for (int i=0; i<sprites.size(); i++) {
+        for (int i = 0; i < sprites.size(); i++) {
             Sprite sprite = sprites.get(i);
             if (sprite instanceof ElementType) {
                 ElementType element = (ElementType) sprite;
@@ -148,9 +149,9 @@ public class FoodField extends SpriteContainer{
                         ((Food) element).delete(this);
                     } else if (element instanceof Posion) {
                         System.out.println("Clic detectado en el Posion, llamando a delete.");
-                        ((Posion) element).delete(this); 
+                        ((Posion) element).delete(this);
                     }
-                    break; 
+                    break;
                 }
             }
         }
@@ -173,5 +174,10 @@ public class FoodField extends SpriteContainer{
     @Override
     public Rectangle getBoundaries() {
         return new Rectangle(x, y, width, height);
-    }    
+    }
+
+    @Override
+    public Rectangle getBordes() {
+        return new Rectangle(x, y, width, height);
+    }
 }

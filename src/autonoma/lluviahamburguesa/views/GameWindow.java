@@ -6,28 +6,38 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author marti
  */
-public class GameWindow extends javax.swing.JFrame implements GraphicContainer{
+public class GameWindow extends javax.swing.JFrame implements GraphicContainer {
+
+    public static final int _WIDTH = 850;
+    public static final int _HEIGHT = 550;
     private FoodField foodField;
+    // Double Buffer
+    private BufferedImage imagenBuffer;
+    private Graphics gImagenBuffer;
 
     /**
      * Creates new form GameWindow
      */
-    public GameWindow() {
-        setUndecorated(true);
+    public GameWindow(FoodField f) {
+        foodField = f;
         initComponents();
-        this.setSize(500, 500);
+
         this.setLocationRelativeTo(null);
-        try {
-            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/lluviahamburguesa/images/hamburguer.png")).getImage());
-        } catch (Exception e) {
-            System.out.println("imagen no encontrada");
-        }
+
+        this.setSize(_WIDTH, _HEIGHT);
+
+        // Crear la imagen y cargarla en memoria
+        this.imagenBuffer = new BufferedImage(_WIDTH, _HEIGHT,
+                BufferedImage.TYPE_INT_RGB);
+
+        this.gImagenBuffer = this.imagenBuffer.getGraphics();
     }
 
     /**
@@ -40,9 +50,20 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer{
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
             }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -72,34 +93,56 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer{
     }//GEN-LAST:event_formKeyPressed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+
+    }//GEN-LAST:event_formMouseClicked
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         System.out.println("¡Clic detectado!");
         if (foodField != null) {
             foodField.handleClick(evt.getPoint());
-            foodField.refresh();  
+            foodField.refresh();
             repaint();
         }
-    }//GEN-LAST:event_formMouseClicked
+    }//GEN-LAST:event_formMousePressed
     public void setFoodField(FoodField foodField) {
         this.foodField = foodField;
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g); // Esto es importante para que se repinten correctamente los componentes
-        System.out.println("Repintando la ventana...");
+    public void update(Graphics g) {
         // Fondo color cielo azul claro
-        g.setColor(new Color(135, 206, 235));
-        g.fillRect(0, 0, getWidth(), getHeight());
+        gImagenBuffer.setColor(new Color(135, 206, 235));
+        gImagenBuffer.fillRect(0, 0, getWidth(), getHeight());
 
         // Pintar el FoodField encima del fondo
         if (foodField != null) {
-            foodField.paint(g);
+            foodField.paint(gImagenBuffer);
             if (foodField.getPlayer() != null) {
-                g.setColor(Color.BLACK);
-                g.drawString("Puntaje: " + foodField.getPlayer().getPuntaje(), 20, 50);
+                gImagenBuffer.setColor(Color.BLACK);
+                gImagenBuffer.drawString("Puntaje: " + foodField.getPlayer().getPuntaje(), 20, 50);
             }
         }
 
+        // Finalmente dibuja la imagen completa en pantalla
+        g.drawImage(imagenBuffer, 0, 0, this);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        update(g);
+    }
+
+    @Override
+    public Rectangle getBordes() {
+        return new Rectangle(WIDTH, HEIGHT);
     }
 
     /**
@@ -108,17 +151,6 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer{
     @Override
     public void refresh() {
         this.repaint();
-    }
-
-    /**
-     * Este método devuelve el rectángulo que representa los límites de la
-     * ventana del juego (la posición y el tamaño de la ventana).
-     *
-     * @return
-     */
-    @Override
-    public Rectangle getBoundaries() {
-        return this.getBounds();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

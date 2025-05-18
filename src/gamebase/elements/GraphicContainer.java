@@ -11,6 +11,6 @@ import java.awt.Rectangle;
  * @author marti
  */
 public interface GraphicContainer {
-    public void refresh();
-    public Rectangle getBoundaries();
+    public abstract Rectangle getBordes();
+    public abstract void refresh();
 }

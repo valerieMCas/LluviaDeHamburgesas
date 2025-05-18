@@ -12,7 +12,8 @@ import java.util.ArrayList;
  */
 public abstract class SpriteContainer extends Sprite implements GraphicContainer
 {
-    protected ArrayList<Sprite> sprites;   
+    protected ArrayList<Sprite> sprites;
+    protected GraphicContainer contenedor;
     
     public SpriteContainer(int x, int y, int height, int width) {
         super(x, y, height, width);
@@ -35,8 +36,11 @@ public abstract class SpriteContainer extends Sprite implements GraphicContainer
         sprites.remove(sprite);
     }
     
-    public int size()
-    {
-        return sprites.size();
+    public GraphicContainer getContenedor() {
+        return contenedor;
+    }
+
+    public void setContenedor(GraphicContainer contenedor) {
+        this.contenedor = contenedor;
     }
 }
