@@ -18,7 +18,7 @@ public class Posion extends ElementType {
 
     public Posion(int x, int y, int height, int width) {
         super(x, y, height, width);
-        posionImage = new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/pocion1.png")).getImage();
+        posionImage = new ImageIcon(getClass().getResource("/autonoma/lluviahamburguesa/images/pocion1.png")).getImage();
         setStep(2);
     }
 

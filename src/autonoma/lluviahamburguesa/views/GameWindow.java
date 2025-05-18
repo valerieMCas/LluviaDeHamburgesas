@@ -24,7 +24,7 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer{
         this.setSize(500, 500);
         this.setLocationRelativeTo(null);
         try {
-            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer.png")).getImage());
+            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/lluviahamburguesa/images/hamburguer.png")).getImage());
         } catch (Exception e) {
             System.out.println("imagen no encontrada");
         }
