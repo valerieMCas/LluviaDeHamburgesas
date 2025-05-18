@@ -1,20 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package autonoma.lluviahamburguesa.views;
+
+import autonoma.lluviahamburguesa.models.FoodField;
+import gamebase.elements.GraphicContainer;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author marti
  */
-public class GameWindow extends javax.swing.JFrame {
+public class GameWindow extends javax.swing.JFrame implements GraphicContainer{
+    private FoodField foodField;
 
     /**
      * Creates new form GameWindow
      */
     public GameWindow() {
+        setUndecorated(true);
         initComponents();
+        this.setSize(500, 500);
+        this.setLocationRelativeTo(null);
+        try {
+            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer.png")).getImage());
+        } catch (Exception e) {
+            System.out.println("imagen no encontrada");
+        }
     }
 
     /**
@@ -27,6 +40,16 @@ public class GameWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -42,39 +65,60 @@ public class GameWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_Q) {
+            System.exit(0);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_formKeyPressed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GameWindow().setVisible(true);
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        System.out.println("¡Clic detectado!");
+        if (foodField != null) {
+            foodField.handleClick(evt.getPoint());
+            foodField.refresh();  
+            repaint();
+        }
+    }//GEN-LAST:event_formMouseClicked
+    public void setFoodField(FoodField foodField) {
+        this.foodField = foodField;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g); // Esto es importante para que se repinten correctamente los componentes
+        System.out.println("Repintando la ventana...");
+        // Fondo color cielo azul claro
+        g.setColor(new Color(135, 206, 235));
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        // Pintar el FoodField encima del fondo
+        if (foodField != null) {
+            foodField.paint(g);
+            if (foodField.getPlayer() != null) {
+                g.setColor(Color.BLACK);
+                g.drawString("Puntaje: " + foodField.getPlayer().getPuntaje(), 20, 50);
             }
-        });
+        }
+
+    }
+
+    /**
+     * Refresca la interfaz gráfica de la ventana del juego.
+     */
+    @Override
+    public void refresh() {
+        this.repaint();
+    }
+
+    /**
+     * Este método devuelve el rectángulo que representa los límites de la
+     * ventana del juego (la posición y el tamaño de la ventana).
+     *
+     * @return
+     */
+    @Override
+    public Rectangle getBoundaries() {
+        return this.getBounds();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
