@@ -117,7 +117,8 @@ public class FoodField extends SpriteContainer{
     }
 
     public void update() {
-        for (Sprite sprite : sprites) {
+        for (int i=0; i<sprites.size(); i++) {
+            Sprite sprite = sprites.get(i);
             if (sprite instanceof ElementType) {
                 ElementType element = (ElementType) sprite;
                 element.setY(element.getY() + element.getStep());
