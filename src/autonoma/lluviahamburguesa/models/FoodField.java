@@ -50,6 +50,7 @@ public class FoodField extends SpriteContainer {
 
         this.poisonSpawner = new PoisonSpawner(this);
         this.poisonSpawner.start();
+        setImage("FondoComida.jpg");
     }
 
     public void setPlayer(Player player) {
@@ -140,7 +141,8 @@ public class FoodField extends SpriteContainer {
      * tipo Point, y lo estamos pasando correctamente al método handleClick.
      */
     public void handleClick(Point clickPoint) {
-        for (Sprite sprite : sprites) {
+        for (int i = 0; i < sprites.size(); i++) {
+            Sprite sprite = sprites.get(i);
             if (sprite instanceof ElementType) {
                 ElementType element = (ElementType) sprite;
                 if (element.checkCollision(clickPoint)) {
@@ -157,9 +159,24 @@ public class FoodField extends SpriteContainer {
         }
     }
 
+    /**
+     * Dibuja el campo de juego y todos los elementos que contiene.
+     * Este método primero dibuja la imagen de fondo del campo de juego, y luego
+     * recorre una copia de la lista de sprites Que contiene referencias a los mismos 
+     * objetos Sprite que hay en sprites, ara dibujarlos sobre el campo.
+     * Se utiliza una copia de la lista de sprites ({@code copiaSprites}) para
+     * evitar problemas de concurrencia, ya que la lista original puede ser
+     * modificada desde otros hilos (por ejemplo, agregando o eliminando sprites
+     * mientras se realiza el repintado).
+     * 
+     */
     @Override
     public void paint(Graphics g) {
-        for (Sprite sprite : sprites) {
+        g.drawImage(getImage(), getX(), getY(), getWidth(), getHeight(), null);
+        // Copiar la lista para evitar problemas de concurrencia
+        List<Sprite> copiaSprites = new ArrayList<>(sprites);
+
+        for (Sprite sprite : copiaSprites) {
             sprite.paint(g);
         }
     }

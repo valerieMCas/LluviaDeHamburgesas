@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -27,7 +27,9 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer {
      */
     public GameWindow(FoodField f) {
         foodField = f;
+        setUndecorated(true);
         initComponents();
+        
 
         this.setLocationRelativeTo(null);
 
@@ -118,20 +120,16 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer {
 
     @Override
     public void update(Graphics g) {
-        // Fondo color cielo azul claro
-        gImagenBuffer.setColor(new Color(135, 206, 235));
-        gImagenBuffer.fillRect(0, 0, getWidth(), getHeight());
-
         // Pintar el FoodField encima del fondo
         if (foodField != null) {
             foodField.paint(gImagenBuffer);
             if (foodField.getPlayer() != null) {
-                gImagenBuffer.setColor(Color.BLACK);
+                gImagenBuffer.setColor(Color.YELLOW);
                 gImagenBuffer.drawString("Puntaje: " + foodField.getPlayer().getPuntaje(), 20, 50);
             }
         }
 
-        // Finalmente dibuja la imagen completa en pantalla
+        //dibuja la imagen completa en pantalla
         g.drawImage(imagenBuffer, 0, 0, this);
     }
 
