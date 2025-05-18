@@ -18,7 +18,7 @@ public class Food extends ElementType {
 
     public Food(int x, int y, int height, int width) {
         super(x, y, height, width);
-        hamburguerImage = new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer.png")).getImage();
+        hamburguerImage= new ImageIcon(getClass().getResource("/autonoma/lluviahamburguesa/images/hamburguer.png")).getImage();
         setStep(2);
     }
 
