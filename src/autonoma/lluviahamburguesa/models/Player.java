@@ -43,5 +43,15 @@ public class Player {
         this.puntaje += score;
         System.out.println("Puntaje actualizado: " + puntaje);
     }
+    /**
+     * Metodo de disminuir el puntaje del jugador
+     */
+    public void disminuirPuntaje(){
+        this.puntaje -=2;
+        if(this.puntaje<0){
+            this.setPuntaje(0);
+        }
+        System.out.println("Puntaje actualizado: " + puntaje);
+    }
 
 }
