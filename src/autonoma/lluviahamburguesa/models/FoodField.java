@@ -118,6 +118,15 @@ public class FoodField extends SpriteContainer {
         }
         return count;
     }
+    public int getPoisonCount() {
+        int count = 0;
+        for (Sprite sprite : sprites) {
+            if (sprite instanceof Posion) {
+                count++;
+            }
+        }
+        return count;
+    }
     /**
      * Elimina una pulga del campo de batalla. Este método elimina la pulga
      * especificada de la lista de sprites activos y aumenta el puntaje del
