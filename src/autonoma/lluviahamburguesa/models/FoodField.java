@@ -86,6 +86,7 @@ public class FoodField extends SpriteContainer {
         sprites.add(e);
         refresh();
     }
+    
 
     /**
      * Metodo para agregar el veneno a Food field
@@ -104,7 +105,19 @@ public class FoodField extends SpriteContainer {
         sprites.add(e);
         refresh();
     }
-
+    /**
+     * Metodo para contar la cantidad de comida
+     *  
+     */
+    public int getFoodCount() {
+        int count = 0;
+        for (Sprite sprite : sprites) {
+            if (sprite instanceof Food) {
+                count++;
+            }
+        }
+        return count;
+    }
     /**
      * Elimina una pulga del campo de batalla. Este método elimina la pulga
      * especificada de la lista de sprites activos y aumenta el puntaje del
