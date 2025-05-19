@@ -148,6 +148,7 @@ public class FoodField extends SpriteContainer {
                 if (element.checkCollision(clickPoint)) {
                     System.out.println("Clic detectado en el elemento: " + element);
                     if (element instanceof Food) {
+                        ((Food) element).playEatSound();
                         ((Food) element).delete(this);
                     } else if (element instanceof Posion) {
                         System.out.println("Clic detectado en el Posion, llamando a delete.");
