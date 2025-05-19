@@ -44,7 +44,12 @@ public class PoisonSpawner implements Runnable{
                 Thread.sleep(3000);
                 if (!paused) {
                     System.out.println("Intentando agregar Posion...");
-                    foodField.addPosion();
+                    if (foodField.getPoisonCount() < 4) {
+                        // Agrega un nuevo veneno solo si hay menos de 4
+                        foodField.addPosion();
+                    } else {
+                        System.out.println("Límite de veneno alcanzado.");
+                    }
                 }
             } catch (InterruptedException ex) {
 
